@@ -1,3 +1,7 @@
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -143,9 +147,16 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
+        int valorParsed = 0;
+        try {
+           valorParsed = Integer.parseInt(valor);
+        }catch(Exception ex) {
+            JOptionPane.showConfirmDialog(rootPane, "O campo Valor deve ser preenchido apenas com numeros");
+            return;
+        }
         String status = "A Venda";
         produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
+        produto.setValor(valorParsed);
         produto.setStatus(status);
         
         ProdutosDAO produtodao = new ProdutosDAO();
