@@ -151,7 +151,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         try {
            valorParsed = Integer.parseInt(valor);
         }catch(Exception ex) {
-            JOptionPane.showConfirmDialog(rootPane, "O campo Valor deve ser preenchido apenas com numeros");
+            JOptionPane.showMessageDialog(rootPane, "O campo Valor deve ser preenchido apenas com numeros");
             return;
         }
         String status = "A Venda";
@@ -160,7 +160,13 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setStatus(status);
         
         ProdutosDAO produtodao = new ProdutosDAO();
+        try {
         produtodao.cadastrarProduto(produto);
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível cadastrar o produto");
+            return;
+        }
+        JOptionPane.showMessageDialog(rootPane, "Produto: " + produto.getNome() + " cadstrado com sucesso");
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

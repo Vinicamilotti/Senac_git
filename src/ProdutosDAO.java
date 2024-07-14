@@ -22,10 +22,22 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
-    public void cadastrarProduto (ProdutosDTO produto){
+    public void cadastrarProduto (ProdutosDTO produto) throws Exception {
         
         
-        //conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
+        String insertStatment = "INSERT INTO produtos(nome, valor, status) VALUES (?, ?, ?)";
+        try {
+            
+        
+        PreparedStatement statment = conn.prepareStatement(insertStatment);
+        statment.setString(1, produto.getNome());
+        statment.setInt(2, produto.getValor());
+        statment.setString(3, produto.getStatus());
+        statment.execute();
+        }catch(Exception ex) {
+            throw ex;
+        }
         
         
     }
