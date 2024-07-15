@@ -162,12 +162,13 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        listagemVendasVIEW vendas = new listagemVendasVIEW();
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
+  
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVendasMouseClicked
@@ -229,7 +230,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
             model.setNumRows(0);
             
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
+            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos(false);
             
             for(int i = 0; i < listagem.size(); i++){
                 model.addRow(new Object[]{
