@@ -91,7 +91,7 @@ public class ProdutosDAO {
     public void venderProduto(int idProduto) throws Exception
     {
         ProdutosDTO getProduto = getProduto(idProduto);
-        if(getProduto.getStatus() == "Vendido"){
+        if(getProduto.getStatus().equalsIgnoreCase("Vendido")){
             throw new Exception("Produto " + getProduto.getNome() + " já foi vendido");
         }
         
