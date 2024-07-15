@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -144,22 +145,34 @@ public class listagemVIEW extends javax.swing.JFrame {
         String id = id_produto_venda.getText();
         
         ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+     
+        try {
+             int idParsed = Integer.parseInt(id);
+             produtosdao.venderProduto(idParsed);
+             listarProdutos();
+             JOptionPane.showMessageDialog(rootPane, "Produto vendido");
+        }
+        catch(NumberFormatException nex){
+            JOptionPane.showMessageDialog(rootPane, "Informe apenas numero no campo de venda");
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        listagemVendasVIEW vendas = new listagemVendasVIEW();
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
+  
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVendasMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnVendasMouseClicked
 
     /**
@@ -217,7 +230,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
             model.setNumRows(0);
             
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
+            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos(false);
             
             for(int i = 0; i < listagem.size(); i++){
                 model.addRow(new Object[]{

@@ -50,8 +50,11 @@ public class ProdutosDAO {
         
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos() throws Exception {
+    public ArrayList<ProdutosDTO> listarProdutos(Boolean apenasVendas) throws Exception {
         String buscarProdutosSQL = "SELECT * FROM produtos";
+        if(apenasVendas){
+            buscarProdutosSQL += " WHERE status = 'Vendido'";
+        }
         Statement statement = conn.createStatement();
         try {
             resultset = statement.executeQuery(buscarProdutosSQL);
@@ -70,7 +73,38 @@ public class ProdutosDAO {
         }
         return listagem;
     }
+
+    public ProdutosDTO getProduto(int idProduto) throws Exception {
+        String sqlBuscar = "SELECT * FROM produtos WHERE id = ?";
+        PreparedStatement statement = conn.prepareStatement(sqlBuscar);
+        statement.setInt(1, idProduto);
+        ResultSet result = statement.executeQuery();
+        int rowCount = result.last() ? result.getRow() : 0;
+        if (rowCount == 0) {
+            throw new Exception("Nenhum produto encontrado");
+        }
+        ProdutosDTO produto  = new ProdutosDTO();
+        produto.setId(result.getInt("id"));
+        produto.setNome(result.getString("nome"));
+        produto.setValor(result.getInt("valor"));
+        produto.setStatus(result.getString("status"));
+        return produto;
+        
+    }
     
+    public void venderProduto(int idProduto) throws Exception
+    {
+        ProdutosDTO getProduto = getProduto(idProduto);
+        if(getProduto.getStatus().equalsIgnoreCase("Vendido")){
+            throw new Exception("Produto " + getProduto.getNome() + " já foi vendido");
+        }
+        
+        String sqlUpdate = "UPDATE produtos SET status = ? WHERE id = ?";
+        PreparedStatement statement = conn.prepareStatement(sqlUpdate);
+        statement.setString(1, "Vendido");
+        statement.setInt(2, idProduto);
+        statement.execute();
+    }
     
     
         
