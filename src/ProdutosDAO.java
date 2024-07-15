@@ -50,8 +50,11 @@ public class ProdutosDAO {
         
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos() throws Exception {
+    public ArrayList<ProdutosDTO> listarProdutos(Boolean apenasVendas) throws Exception {
         String buscarProdutosSQL = "SELECT * FROM produtos";
+        if(apenasVendas){
+            buscarProdutosSQL += " WHERE status = 'Vendido'";
+        }
         Statement statement = conn.createStatement();
         try {
             resultset = statement.executeQuery(buscarProdutosSQL);
@@ -70,6 +73,7 @@ public class ProdutosDAO {
         }
         return listagem;
     }
+
     public ProdutosDTO getProduto(int idProduto) throws Exception {
         String sqlBuscar = "SELECT * FROM produtos WHERE id = ?";
         PreparedStatement statement = conn.prepareStatement(sqlBuscar);
