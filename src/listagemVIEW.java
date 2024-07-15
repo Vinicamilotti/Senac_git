@@ -72,6 +72,11 @@ public class listagemVIEW extends javax.swing.JFrame {
         });
 
         btnVendas.setText("Consultar Vendas");
+        btnVendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVendasMouseClicked(evt);
+            }
+        });
         btnVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVendasActionPerformed(evt);
@@ -152,6 +157,10 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVendasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVendasMouseClicked
 
     /**
      * @param args the command line arguments
